@@ -62,6 +62,15 @@
         </div>
     </section>
 
+    <section class="profile-display">
+        <div class="container">
+            <h2>Ваша анкета</h2>
+            <div id="profileInfo">
+                <!-- Profile info will be displayed here -->
+            </div>
+        </div>
+    </section>
+
     <section class="about-container" id="about">
         <div class="container">
             <h2>О TeamFinder</h2>
@@ -113,5 +122,71 @@
     </script>
 
     <script src="js/script.js"></script>
+
+    
+
+    <section class="profile-display">
+        <div class="container">
+            <h2>Ваша анкета</h2>
+            <div id="profileInfo">
+                <!-- Profile info will be displayed here -->
+            </div>
+        </div>
+    </section>
+
+    <section class="profile-display">
+        <div class="container">
+            <h2>Ваша анкета</h2>
+            <div id="profileInfo">
+                <!-- Profile info will be displayed here -->
+            </div>
+        </div>
+    </section>
+
+    <script>
+        window.onload = function() {
+            // Existing cookie code
+            setCookie("userVisited", "true", 30);
+
+            // Retrieve profile data from localStorage
+            const profileDataString = localStorage.getItem('userProfile');
+
+            if (profileDataString) {
+                const profileData = JSON.parse(profileDataString);
+
+                // Display the profile data
+                const profileInfoDiv = document.getElementById('profileInfo');
+                profileInfoDiv.innerHTML = `
+                    <p><strong>Игра:</strong> ${profileData.game}</p>
+                    <p><strong>Роль:</strong> ${profileData.role}</p>
+                    <p><strong>Количество побед:</strong> ${profileData.wins || 'Не указано'}</p>
+                    <p><strong>Платформа:</strong> ${profileData.platform}</p>
+                    <p><strong>Размер команды:</strong> ${profileData.teamSize}</p>
+                    <p><strong>Тип турнира:</strong> ${profileData.tournament}</p>
+                    <button id="deleteProfileBtn" class="button">Удалить анкету</button>
+                    
+                    
+                    
+                `;
+
+                // Add event listener to the delete button
+                document.getElementById('deleteProfileBtn').addEventListener('click', deleteProfile);
+
+            } else {
+                 const profileInfoDiv = document.getElementById('profileInfo');
+                 profileInfoDiv.innerHTML = `<p>Нет созданной анкеты. <a href="pages/create-profile.html">Создать сейчас!</a></p>`;
+            }
+        };
+
+        function deleteProfile() {
+            localStorage.removeItem('userProfile');
+            const profileInfoDiv = document.getElementById('profileInfo');
+            profileInfoDiv.innerHTML = `<p>Нет созданной анкеты. <a href="pages/create-profile.html">Создать сейчас!</a></p>`;
+        }
+    </script>
+
+
+
+
 </body>
 </html>
